@@ -1,0 +1,77 @@
+<h1>FirstLight API Demo</h1>
+
+<h3>Raw Franchise Data for User</h3>
+<% @franchise_ratings["franchises"].each do |franchise| %>
+  <h5><%= franchise["name"] %><br></h5>
+  <strong>Current Quarter:</strong>  <%= franchise["current_quarter"] %> <br>
+  <strong>Total Responses:</strong>  <%= franchise["total_responses"] %><br>
+  <strong>Franchise Rating:</strong> <%= franchise["rating"] %><br><br>
+  <strong>Verbatim Responses:</strong><br>
+  <% franchise["verbatim_responses"].each do |response| %>
+    <%= response %>
+    <br>
+  <% end %>
+<% end %>
+
+<h3>Franchise Cards Example</h3>
+<div class="row">
+<% @franchise_ratings["franchises"].each do |franchise| %>
+  <div class="col s6">
+    <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="https://i.imgur.com/MiAEWgr.png">
+        </div>
+        <div class="card-content">
+          <span class="card-title activator blue-text text-darken-4"><%= franchise["name"] %><i class="material-icons right">See Verbatims</i></span>
+          <p>Current Quarter: <%= franchise["current_quarter"] %></p>
+          <p>Total Responses: <%= franchise["total_responses"] %></p>
+          <p>Franchise Rating: <mark class=""><%= franchise["rating"] %></mark></p>
+          <br>
+          <p><em>"<%= franchise["verbatim_responses"].sample %>"</em></p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">Verbatim Responses:<i class="material-icons right">close</i></span>
+
+          <% franchise["verbatim_responses"].each do |response| %>
+            <p><%= response %></p>
+          <% end %>
+        </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<h3>Raw Regional Data</h3>
+<% @franchise_ratings["regions"].each do |region| %>
+  <h5><%= region["name"] %><br></h5>
+  Current Quarter: <%= region["current_quarter"] %> <br>
+  Total Responses: <%= region["total_responses"] %><br>
+  Franchise Rating: <%= region["rating"] %><br><br>
+<% end %>
+
+<h3>Raw Overall Data</h3>
+  <h5>Overall</h5>
+  Current Quarter: <%= @franchise_ratings["overall"]["current_quarter"] %> <br>
+  Total Responses: <%= @franchise_ratings["overall"]["total_responses"] %><br>
+  Franchise Rating: <%= @franchise_ratings["overall"]["rating"] %><br><br>
+
+<h3>Mixed Data Examples</h3>
+<div class="row">
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="card-panel grey lighten-5 z-depth-1">
+      <div class="row valign-wrapper">
+        <div class="col s2">
+          <img src="http://andrewmilnephotography.com/Images/Corporate_portrait_headshot_photographers.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+        </div>
+        <div class="col s10">
+          <span class="blue-text">
+            <em> <%= @franchise_ratings["franchises"][2]["name"][0..10] %>   <strong class="red-text">(<%= @franchise_ratings["franchises"][2]["rating"] %> out of 5 stars)</strong></em>
+          </span>
+          <div class="black-text">
+            <p> <i>"<%= @franchise_ratings["franchises"][2]["verbatim_responses"][15] %>"</i></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
